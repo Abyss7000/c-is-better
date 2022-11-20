@@ -9,11 +9,11 @@
 using namespace std;
 
 void addItems(vector<Item>&);
-void menuAdmin(vector<Item>);
-void menuUser(const vector<Item>);
-void mainMenu(const vector<Item>);
+void menuAdmin(vector<Item>&);
+void menuUser(vector<Item>&);
+void mainMenu(vector<Item>&);
 void printItems(const vector<Item>&);
-void addCartItems(vector <Cart>);
+//void addCartItems(vector <Cart>&);
 
 
 
@@ -33,7 +33,7 @@ int main() {
 }
 
 
-void menuUser(vector<Item> newStore) {
+void menuUser(vector<Item>& newStore) {
 	bool begin = true;
 	int input1;
 	
@@ -65,7 +65,7 @@ void menuUser(vector<Item> newStore) {
 
 }
 
-void mainMenu(vector<Item> newStore) {
+void mainMenu(vector<Item>& newStore) {
 	bool begin = true;
 	int input;
 
@@ -96,7 +96,7 @@ void mainMenu(vector<Item> newStore) {
 }
 
 
-void menuAdmin(vector <Item> newStore) {
+void menuAdmin(vector <Item>& newStore) {
 //vector<Item> Store;
 bool r = true;
 
@@ -123,7 +123,7 @@ while (r) {
 }
 }
 
-void addCartItems(vector <Item> newCart) {
+/*void addCartItems(vector <Item>& newCart) {
 	vector<Item> Store;
 	vector <Cart> myCart;
 	printItems(Store);
@@ -135,7 +135,7 @@ void addCartItems(vector <Item> newCart) {
 
 
 
-}
+}*/
 
 
 
@@ -160,7 +160,7 @@ void addItems(vector <Item>& newStore) {
 		newStore.push_back(newItem);
 
 		//cout << "items in store:\n";
-		//for_each(newStore.begin(), newStore.end(), [](Item newItem) {cout << newItem.getName() << " " << newItem.getPrice() << " " << "\n"; });
+		for_each(newStore.begin(), newStore.end(), [](Item newStore) {cout << newStore.getName() << " " << newStore.getPrice() << " " << "\n"; });
 	}
 
 	cout << endl;
@@ -169,7 +169,7 @@ void addItems(vector <Item>& newStore) {
 
 void printItems(const vector<Item>& newStore) {
 	for (unsigned int i = 0; i < newStore.size(); i++) {
-		cout << "Item Name: " << "		" << newStore[i].getName() << "item Price:" << "		" << newStore[i].getPrice();
+		cout << "Item Name: " << "		" << newStore.at(i).getName() << "item Price:" << "		" << newStore.at(i).getPrice();
 
 		cout << endl;
 	}

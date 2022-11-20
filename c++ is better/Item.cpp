@@ -6,7 +6,8 @@ Item::Item() {
 }
 
 Item::Item(string name, double price) {
-
+	newName = name;
+	newPrice = price;
 
 }
 
