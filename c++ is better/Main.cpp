@@ -9,11 +9,11 @@
 using namespace std;
 
 void addItems(vector<Item>&);
-void menuAdmin();
-void menuUser();
-void mainMenu();
+void menuAdmin(vector<Item>);
+void menuUser(const vector<Item>);
+void mainMenu(const vector<Item>);
 void printItems(const vector<Item>&);
-void addCartItems(vector <Item>&);
+void addCartItems(vector <Cart>);
 
 
 
@@ -21,7 +21,7 @@ void addCartItems(vector <Item>&);
 int main() {
 
 	vector<Item> Store;
-	mainMenu();
+	mainMenu(Store);
 	
 	
 	
@@ -33,10 +33,10 @@ int main() {
 }
 
 
-void menuUser() {
+void menuUser(vector<Item> newStore) {
 	bool begin = true;
 	int input1;
-	vector<Item> Store;
+	
 
 	while (begin) {
 
@@ -45,7 +45,7 @@ void menuUser() {
 
 		input1 = getInt(0,5);
 		switch (input1) {
-		case 1: printItems(Store);
+		case 1: printItems(newStore);
 
 			break;
 		case 2: 
@@ -65,7 +65,7 @@ void menuUser() {
 
 }
 
-void mainMenu() {
+void mainMenu(vector<Item> newStore) {
 	bool begin = true;
 	int input;
 
@@ -75,12 +75,12 @@ void mainMenu() {
 		cout << "1 - admin\n2 - user\n3 - exit	";
 		input = getInt(0, 4);
 		switch (input) {
-		case 1: menuAdmin();
+		case 1: menuAdmin(newStore);
 
 
 			break;
 
-		case 2: menuUser();
+		case 2: menuUser(newStore);
 			break;
 
 		case 3: begin = false;
@@ -96,8 +96,8 @@ void mainMenu() {
 }
 
 
-void menuAdmin() {
-vector<Item> Store;
+void menuAdmin(vector <Item> newStore) {
+//vector<Item> Store;
 bool r = true;
 
 //vector<item> p;
@@ -108,9 +108,9 @@ while (r) {
 	int input1 = getInt(0, 4);
 
 	switch (input1) {
-	case 1: addItems(Store);
+	case 1: addItems(newStore);
 		break;
-	case 2: printItems(Store);
+	case 2: printItems(newStore);
 		break;
 
 	case 3:
@@ -123,7 +123,7 @@ while (r) {
 }
 }
 
-void addCartItems(vector <Item>& newCart) {
+void addCartItems(vector <Item> newCart) {
 	vector<Item> Store;
 	vector <Cart> myCart;
 	printItems(Store);
@@ -153,14 +153,14 @@ void addItems(vector <Item>& newStore) {
 		cout << "\nenter item name ";
 		cin >> name;
 		cout << "\n enter price of item ";
-		price = getInt(0, 999999999999);
+		price = getInt(0, 999999999);
 	
 		
 		Item newItem(name, price);
 		newStore.push_back(newItem);
 
-		cout << "items in store:\n";
-		for_each(newStore.begin(), newStore.end(), [](Item newItem) {cout << newItem.getName() << " " << newItem.getPrice() << " " << "\n"; });
+		//cout << "items in store:\n";
+		//for_each(newStore.begin(), newStore.end(), [](Item newItem) {cout << newItem.getName() << " " << newItem.getPrice() << " " << "\n"; });
 	}
 
 	cout << endl;

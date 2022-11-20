@@ -10,7 +10,7 @@ Cart::Cart(double price) {
 }
 
 
-Cart::Cart() {
+Cart::~Cart() {
 
 }
 
