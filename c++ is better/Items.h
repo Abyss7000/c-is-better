@@ -27,7 +27,7 @@ public:
 
 
 
-//private:
+private:
 	string newName;
 	double newPrice;
 

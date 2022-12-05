@@ -13,20 +13,25 @@ public:
 	Cart();
 
 	//overload 
-	Cart(double);
+	Cart(string, double, double);
+	
 
 	//destructor
 	~Cart();
 
 
 	double getCartPrice() const;
+	string getBoutghtItem() const;
+	double getFinalCartPrice() const;
 
-	
+
 	void setCartPrice(double);
-
-
+	void setBoughtItem(string);
+	void setFinalCartPrice(double);
 
 private:
 	double newCartPrice;
+	string newBoughtItem;
+	double newFinalCartPrice;
 
 };

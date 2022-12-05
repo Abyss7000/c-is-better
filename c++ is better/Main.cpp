@@ -5,15 +5,17 @@
 #include <vector>
 #include <algorithm>
 #include "Cart.h"
+#include <numeric>
 
 using namespace std;
 
 void addItems(vector<Item>&);
 void menuAdmin(vector<Item>&);
-void menuUser(vector<Item>&);
-void mainMenu(vector<Item>&);
+void menuUser(vector<Item>&, vector <Cart>&);
+void mainMenu(vector<Item>&, vector <Cart>&);
 void printItems(const vector<Item>&);
-//void addCartItems(vector <Cart>&);
+//void ShopAdd(vector<Item>&, vector<Cart>&);
+void addCartItems(vector<Item>&,vector <Cart>&);
 
 
 
@@ -21,7 +23,8 @@ void printItems(const vector<Item>&);
 int main() {
 
 	vector<Item> Store;
-	mainMenu(Store);
+	vector <Cart> myCart;
+	mainMenu(Store, myCart);
 	
 	
 	
@@ -33,26 +36,40 @@ int main() {
 }
 
 
-void menuUser(vector<Item>& newStore) {
+void menuUser(vector<Item>& newStore, vector<Cart>& newCart) {
 	bool begin = true;
 	int input1;
+	int sum =0;
+	//vector<double>Sum;
 	
 
 	while (begin) {
 
 		cout << "choose a menu\n";
-		cout << "1 - view Items\n2 - buy items\n 3 - view cart\n 4 - exit\n 	";
+		cout << "1 - view Items\n2 - buy items\n3 - view cart\n4 - exit\n 	";
 
 		input1 = getInt(0,5);
 		switch (input1) {
 		case 1: printItems(newStore);
 
 			break;
-		case 2: 
-
+		case 2:
+		
+			addCartItems(newStore,newCart);
 
 			break;
 		case 3:
+			//for_each(newCart.begin(), newCart.end(), [](double Sum, Cart newCart) {Sum = newCart.getCartPrice(); });
+			for_each(newCart.begin(), newCart.end(), [](Cart newCart) {cout << newCart.getBoutghtItem() << " " << newCart.getCartPrice() << " "  << "\n"; });
+			cout << "Sum of all the items is: \n" << endl;
+			
+			for (int i = 0; i < newCart.size(); i++) {
+				sum += newCart.at(i).getCartPrice();
+			}
+			cout << sum;
+			cout << endl;
+
+			
 			break;
 		case 4:
 			begin = false;
@@ -65,7 +82,11 @@ void menuUser(vector<Item>& newStore) {
 
 }
 
-void mainMenu(vector<Item>& newStore) {
+
+
+
+
+void mainMenu(vector<Item>& newStore, vector<Cart>& newCart) {
 	bool begin = true;
 	int input;
 
@@ -80,7 +101,7 @@ void mainMenu(vector<Item>& newStore) {
 
 			break;
 
-		case 2: menuUser(newStore);
+		case 2: menuUser(newStore, newCart);
 			break;
 
 		case 3: begin = false;
@@ -123,19 +144,46 @@ while (r) {
 }
 }
 
-/*void addCartItems(vector <Item>& newCart) {
-	vector<Item> Store;
-	vector <Cart> myCart;
-	printItems(Store);
+void addCartItems(vector<Item>& newStore, vector <Cart>& newCart) {
+	string userItem;
+	string BoughtItem;
+	double CartPrice;
+	double FinalCartPrice;
 
-	cout << "enter the name of the item you want";
-	int userinput;
-	cin >> userinput;
+	cout << "enter the name of the item you want:\n";
+	//string userItem;
+	cin >> userItem;
+	for (int i = 0; i < newStore.size(); i++) {
+		if (userItem == newStore.at(i).getName()) {
+			cout << "Item added to cart: " << "		" << newStore.at(i).getName();
+			cout << endl;
+			//ShopAdd(newStore, newCart);
+			BoughtItem = newStore.at(i).getName();
+			CartPrice = newStore.at(i).getPrice();
+
+			
+
+
+			FinalCartPrice = 0;
+			Cart newShop(BoughtItem, CartPrice, FinalCartPrice);
+			newCart.push_back(newShop);
+
+			
+
+		}
+		else {
+			//cout << "item not found\n";
+			break;
+		}
+	}
+	//for_each(newCart.begin(), newCart.end(), [](Cart newCart) {cout << newCart.getBoutghtItem() << " " << newCart.getCartPrice() << " " << "\n"; });
+
+	
 
 
 
 
-}*/
+}
 
 
 
@@ -168,12 +216,9 @@ void addItems(vector <Item>& newStore) {
 }
 
 void printItems(const vector<Item>& newStore) {
-	for (unsigned int i = 0; i < newStore.size(); i++) {
-		cout << "Item Name: " << "		" << newStore.at(i).getName() << "item Price:" << "		" << newStore.at(i).getPrice();
-
-		cout << endl;
+	for_each(newStore.begin(), newStore.end(), [](Item newStore) {cout << newStore.getName() << " " << newStore.getPrice() << " " << "\n"; });
 	}
-}
+
 
 
 
